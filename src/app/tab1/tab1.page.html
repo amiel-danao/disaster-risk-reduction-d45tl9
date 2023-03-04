@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,42 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+<!--      <ion-title size="large">Tab 1</ion-title>-->
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <div class="ion-text-center">
+          <ion-card-header>
+            <ion-card-title><h1 class="ion-text-uppercase" [innerHTML]="currentDate"></h1></ion-card-title>
+            <ion-card-subtitle>
+              <h1 *ngIf="locationInfo && weather; else elseBlock" [innerHTML]="locationInfo.city + ', ' + weather.location.region"></h1>
+              <ng-template #elseBlock>Loading...</ng-template>
+              <h2 *ngIf="weather;" [innerHTML]="weather.current.weather_descriptions[0]"></h2>
+            </ion-card-subtitle>
+          </ion-card-header>
+
+          <img *ngIf="weather; else elseBlock" [src]="weatherIcon" alt="weather icon"/>
+            <ng-template #elseBlock><img src="https://ionicframework.com/docs/img/demos/card-media.png" alt="weather icon"></ng-template>
+
+          <ion-card-content>
+
+            <h1 *ngIf="weather;" [innerHTML]="weather.current.temperature + '°C'"></h1>
+          </ion-card-content>
+          </div>
+        </ion-card>
+
+          <ion-text color="primary">
+
+
+
+          </ion-text>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
