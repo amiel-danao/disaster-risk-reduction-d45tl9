@@ -53,9 +53,11 @@ export class Tab1Page {
   getIcon(description: string){
     switch (description){
     case "Partly cloudy":
-      return '/assets/images/cloudy.png'
+      return '/assets/images/cloudy.png';
+    case "Sunny":
+      return '/assets/images/sunny.png';
     default:
-      return '/assets/images/cloudy.png'
+      return '/assets/images/cloudy.png';
     }
   }
 }

@@ -1,22 +1,44 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
 
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-menu contentId="main-content">
+  <ion-header>
     <ion-toolbar>
-<!--      <ion-title size="large">Tab 1</ion-title>-->
+      <ion-title>Disaster Risk Reduction</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">This is the menu content.</ion-content>
+</ion-menu>
+<!-- 
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    Tap the button in the toolbar to open the menu.
+  </ion-content> -->
+
+
+<div class="ion-page" id="main-content">
+<ion-content [fullscreen]="true">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-toggle>
+          <ion-img style="width: 50px; height: 50px;" src='/assets/images/menu.png'></ion-img>
+        </ion-menu-toggle>
+        <!-- <ion-menu-button color="black"></ion-menu-button> -->
+      </ion-buttons>
+      <!-- <ion-title>Menu</ion-title> -->
     </ion-toolbar>
   </ion-header>
 
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-card>
+        <ion-card class="bg-gray">
           <div class="ion-text-center">
           <ion-card-header>
             <ion-card-title><h1 class="ion-text-uppercase" [innerHTML]="currentDate"></h1></ion-card-title>
@@ -32,7 +54,7 @@
 
           <ion-card-content>
 
-            <h1 *ngIf="weather;" [innerHTML]="weather.current.temperature + '°C'"></h1>
+            <h1 *ngIf="weather;" [innerHTML]="weather.current.temperature + '°C'" class="temperature"></h1>
           </ion-card-content>
           </div>
         </ion-card>
@@ -48,3 +70,4 @@
   </ion-grid>
 
 </ion-content>
+</div>
