@@ -7,6 +7,10 @@ import {Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOu
 export class AuthService {
   constructor(private auth: Auth) {}
 
+  get getAuth(){
+    return this.auth;
+  }
+
   async register({ email, password } : {email:string, password:string}) {
     try {
       return await createUserWithEmailAndPassword(this.auth, email, password);

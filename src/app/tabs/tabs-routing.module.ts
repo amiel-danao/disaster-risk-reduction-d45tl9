@@ -20,15 +20,19 @@ const routes: Routes = [
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },
       {
+        path: 'dashboard',
+        loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+      {
         path: '',
-        redirectTo: '/home/tab1',
+        redirectTo: '/home/dashboard',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/home/tab1',
+    redirectTo: '/home/dashboard',
     pathMatch: 'full'
   }
 ];

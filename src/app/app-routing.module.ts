@@ -11,10 +11,19 @@ const routes: Routes = [
     ...canActivate(redirectLoggedInToHome)
   },
   {
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardModule),
+    ...canActivate(redirectUnauthorizedToLogin)
+  },
+  {
     path: 'home',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
     ...canActivate(redirectUnauthorizedToLogin)
   },
+  // {
+  //   path: 'tab2',
+  //   loadChildren: () => import('./tab2/tab2.module').then(m => m.Tab2PageModule)
+  // },
   {
     path: '**',
     redirectTo: '',

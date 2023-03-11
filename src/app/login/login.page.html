@@ -1,27 +1,41 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>My App</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content class="ion-padding">
-  <form (ngSubmit)="login()" [formGroup]="credentials">
-    <ion-item fill="solid" class="ion-margin-bottom">
-      <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
-      <ion-note slot="error" *ngIf="(email!.dirty || email!.touched) && email!.errors"
-      >Email is invalid</ion-note
-      >
-    </ion-item>
-    <ion-item fill="solid" class="ion-margin-bottom">
-      <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
-      <ion-note slot="error" *ngIf="(password!.dirty || password!.touched) && password!.errors"
-      >Password needs to be 6 characters</ion-note
-      >
-    </ion-item>
 
-    <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
-    <ion-button type="button" expand="block" color="secondary" (click)="register()"
-    >Create account</ion-button
-    >
-  </form>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-img class="login-logo" src="/assets/icon/favicon.png" alt="logo"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <form (ngSubmit)="login()" [formGroup]="credentials">
+          <ion-item fill="solid" class="ion-margin-bottom">
+            <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+            <ion-note slot="error" *ngIf="(email!.dirty || email!.touched) && email!.errors"
+            >Email is invalid</ion-note
+            >
+          </ion-item>
+          <ion-item fill="solid" class="ion-margin-bottom">
+            <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+            <ion-note slot="error" *ngIf="(password!.dirty || password!.touched) && password!.errors"
+            >Password needs to be 6 characters</ion-note
+            >
+          </ion-item>
+
+          <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
+          <ion-button type="button" expand="block" color="secondary" (click)="register()"
+          >Create account</ion-button
+          >
+        </form>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="ion-text-center">
+          <h3 class="login-subtitle">HANDA AKO: NATURAL DISASTER AND RISK REDUCTION AND PREPAREDNESS</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

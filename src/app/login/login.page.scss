@@ -1,0 +1,22 @@
+.login-subtitle{
+    font-size: 16px;
+    line-height: 26px;
+    color: black;
+}
+
+.login-logo{
+  width: 60%;
+  height: auto;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+ion-grid{
+  height: 100%;
+}
+ion-row{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30%;
+}

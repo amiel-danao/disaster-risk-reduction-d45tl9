@@ -1,15 +1,16 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
+@import url('https://fonts.googleapis.com/css2?family=Manuale:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #eb445a;
+  --ion-color-primary: #000000;
   --ion-color-primary-rgb: 235, 68, 90;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #cf3c4f;
-  --ion-color-primary-tint: #ed576b;
+  --ion-color-primary-shade: #000000;
+  --ion-color-primary-tint: #000000;
 
   /** secondary **/
   --ion-color-secondary: #3dc2ff;

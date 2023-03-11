@@ -1,3 +1,41 @@
-<ion-app>
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <!-- <ion-title></ion-title> -->
+      <ion-img class="side-menu-logo" src="/assets/icon/favicon.png" alt="logo"></ion-img>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+
+<ion-list>
+  <ion-list-header>
+    <ion-label>Handa Ako</ion-label>
+
+  </ion-list-header>
+
+  <ion-menu-toggle autoHide="false" *ngFor="let p of accountPages; let i = index">
+    <ion-item [routerLink]="p.url">
+      <ion-icon slot="start" [name]="p.ionicIcon? p.ionicIcon: ''" [src]="p.ionicIcon? p.ionicIcon: ''"></ion-icon>
+      <ion-label>
+        {{p.title}}
+      </ion-label>
+    </ion-item>
+
+  </ion-menu-toggle>
+</ion-list>
+<ion-list>
+  <ion-item (click)="logout()">
+    <ion-icon slot="start" name="log-out-outline" src="log-out-outline"></ion-icon>
+    <ion-label>
+      Log-out
+    </ion-label>
+  </ion-item>
+</ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-app id="main-content">
   <ion-router-outlet></ion-router-outlet>
+
+
 </ion-app>

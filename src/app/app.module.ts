@@ -17,7 +17,7 @@ import {HttpClientModule} from "@angular/common/http";
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule, IonicModule.forRoot(), AppRoutingModule,
+    BrowserModule, IonicModule.forRoot({swipeBackEnabled: false}), AppRoutingModule,
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

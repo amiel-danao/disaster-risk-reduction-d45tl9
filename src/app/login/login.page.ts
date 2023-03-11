@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -17,7 +17,8 @@ export class LoginPage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private menuCtrl: MenuController,
   ) {}
 
   // Easy access for form fields
@@ -28,12 +29,21 @@ export class LoginPage implements OnInit {
   get password() {
     return this.credentials.get('password');
   }
+  
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+   }
 
   ngOnInit() {
+    // this.menuCtrl.enable(false);
     this.credentials = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+
+    if(this.authService.getAuth.currentUser != null){
+      this.authService.logout();
+    }    
   }
 
   async register() {

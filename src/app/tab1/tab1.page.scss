@@ -5,23 +5,16 @@
   text-align: left;
 }
 
-ion-content, ion-toolbar{
-  --ion-background-color: grey;
-}
-
 ion-card{
   background-color: grey;
-}
-
-ion-card-title, ion-card-subtitle, ion-card-content{
-  color: black;
-}
-
-ion-toolbar{
-  --background: grey;
+  box-shadow:none;
 }
 
 .temperature{
   font-weight: bolder;
   font-size: 45px;
+}
+
+ion-menu{
+  --background:white;
 }

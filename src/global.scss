@@ -24,3 +24,30 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+@font-face {
+  font-family: 'Revalia';
+  src: url('/assets/fonts/manuale.woff2') format('woff2');
+}
+
+* {
+  font-family: 'Manuale', serif !important;
+}
+
+ion-menu{
+    --background:white;
+}
+
+ion-card-title, ion-card-subtitle, ion-card-content{
+  color: black;
+}
+
+ion-content{
+    --ion-background-color: grey;
+}
+
+ion-toolbar{
+  --border-width: 0 0 0 0 !important;
+  --background: grey;
+}
