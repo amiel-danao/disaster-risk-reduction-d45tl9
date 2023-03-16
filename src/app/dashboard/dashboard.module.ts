@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import {DashboardPage} from "./dashboard.page";
 import {IonicModule} from "@ionic/angular";
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import {IonicModule} from "@ionic/angular";
   imports: [
     CommonModule,
     IonicModule,
+    RouterModule,
     DashboardRoutingModule
   ]
 })

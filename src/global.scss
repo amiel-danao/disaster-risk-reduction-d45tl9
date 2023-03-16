@@ -27,12 +27,12 @@
 
 
 @font-face {
-  font-family: 'Revalia';
+  font-family: 'Manuale';
   src: url('/assets/fonts/manuale.woff2') format('woff2');
 }
 
-* {
-  font-family: 'Manuale', serif !important;
+pre{
+  font-family: 'Manuale', serif;
 }
 
 ion-menu{

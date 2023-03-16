@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
+        path: 'hotlines',
+        loadChildren: () => import('../hotlines/hotlines.module').then(m => m.HotlinesModule)
+      },
+      {
         path: '',
         redirectTo: '/home/dashboard',
         pathMatch: 'full'
