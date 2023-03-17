@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: () => import('../hotlines/hotlines.module').then(m => m.HotlinesModule)
       },
       {
+        path: 'typhoon',
+        loadChildren: () => import('../typhoon/typhoon.module').then(m => m.TyphoonModule)
+      },
+      {
         path: '',
         redirectTo: '/home/dashboard',
         pathMatch: 'full'
