@@ -20,16 +20,18 @@ export class Tab1Page {
 
     await this.service.getCurrentLocationInfo().subscribe((info) => {
       this.locationInfo = info;
-      console.log(info);
-      console.log(this.locationInfo.city);
+      
+      
       if (this.locationInfo != undefined) {
+        console.log(info);
+        console.log(this.locationInfo.city);
         this.locationInfo.city = this.locationInfo.city.replace(/ñ/g, "n");
 
         this.service.getWeatherFromApi(this.locationInfo.city).subscribe((weather) => {
+          console.log(weather);
           this.weather = weather;
           this.setCurrentDate(this.weather.location.localtime);
-          this.weatherIcon = this.getIcon(this.weather.current.weather_descriptions[0]);
-          console.log(weather);
+          this.weatherIcon = this.getIcon(this.weather.current.weather_descriptions[0]);          
         });
 
         const splitCoordinate = this.locationInfo.loc.split(',');

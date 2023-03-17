@@ -18,7 +18,7 @@
           <ion-card-header>
             <ion-card-title><h1 class="ion-text-uppercase" [innerHTML]="currentDate"></h1></ion-card-title>
             <ion-card-subtitle>
-              <h1 *ngIf="locationInfo && weather; else elseBlock" [innerHTML]="locationInfo.city + ', ' + weather.location.region"></h1>
+              <h1 *ngIf="locationInfo && weather; else elseBlock" [innerHTML]="locationInfo.city + ', ' + locationInfo.region"></h1>
               <ng-template #elseBlock>Loading...</ng-template>
               <h2 *ngIf="weather;" [innerHTML]="weather.current.weather_descriptions[0]"></h2>
             </ion-card-subtitle>
