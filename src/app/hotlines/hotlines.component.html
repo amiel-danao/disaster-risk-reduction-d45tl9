@@ -3,13 +3,42 @@
     <ion-header [translucent]="true">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-menu-toggle>
-            <ion-img style="width: 50px; height: 50px;" src='/assets/images/menu.png'></ion-img>
-          </ion-menu-toggle>
+            <ion-icon name="arrow-back-outline" size="large" class="black" [routerLink]="['/home/dashboard']"></ion-icon>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
+    <div class="ion-text-uppercase ion-text-center page-title">
+      <h1>Emergency Hotlines</h1>
+    </div>
+
+    <ion-list lines="none">
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="black"><ion-img src="/assets/images/placeholder-text.png"></ion-img></ion-col>
+            <ion-col><ion-img src="/assets/images/placeholder-text.png"></ion-img></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="black"><ion-img src="/assets/images/placeholder-text.png"></ion-img></ion-col>
+            <ion-col><ion-img src="/assets/images/placeholder-text.png"></ion-img></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="black"><ion-img src="/assets/images/placeholder-text.png"></ion-img></ion-col>
+            <ion-col><ion-img src="/assets/images/placeholder-text.png"></ion-img></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="black"><ion-img src="/assets/images/placeholder-text.png"></ion-img></ion-col>
+            <ion-col><ion-img src="/assets/images/placeholder-text.png"></ion-img></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="black"><ion-img src="/assets/images/placeholder-text.png"></ion-img></ion-col>
+            <ion-col><ion-img src="/assets/images/placeholder-text.png"></ion-img></ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-item>
+    </ion-list>
 
   </ion-content>
 

@@ -20,7 +20,7 @@
     <ion-content [scrollEvents]="true">
     <ion-list lines="none">
       <ion-item >
-        <ion-card class="menu-card menu-1" >
+        <ion-card class="menu-card menu-1" [routerLink]="['/home/hotlines']">
           <div class="card-content">
               <ion-grid>
                 <ion-row class="ion-align-items-center">
@@ -46,7 +46,7 @@
         </ion-card>
       </ion-item>
       <ion-item>
-        <ion-card class="menu-card menu-3">
+        <ion-card class="menu-card menu-3" [routerLink]="['/home/earthquake']">
           <div class="card-content">
               <ion-grid>
                 <ion-row class="ion-align-items-center">
@@ -59,12 +59,12 @@
         </ion-card>
       </ion-item>
       <ion-item>
-        <ion-card class="menu-card menu-4">
+        <ion-card class="menu-card menu-4" [routerLink]="['/home/fire']">
           <div class="card-content">
               <ion-grid>
                 <ion-row class="ion-align-items-center">
                   <ion-col size="2"><img src="/assets/images/fire-icon.png" alt="menu image"></ion-col>
-                  <ion-col size="8" class="ion-text-center" ><p class="menu-text"><ion-text>TYPHOON</ion-text></p></ion-col>
+                  <ion-col size="8" class="ion-text-center" ><p class="menu-text"><ion-text>FIRE</ion-text></p></ion-col>
                   <ion-col size="2"><img src="/assets/images/menu_arrow_button.png" alt="menu image"></ion-col>
                 </ion-row>
               </ion-grid>

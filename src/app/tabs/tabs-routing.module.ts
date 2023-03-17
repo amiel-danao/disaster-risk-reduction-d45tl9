@@ -32,6 +32,14 @@ const routes: Routes = [
         loadChildren: () => import('../typhoon/typhoon.module').then(m => m.TyphoonModule)
       },
       {
+        path: 'earthquake',
+        loadChildren: () => import('../earthquake/earthquake.module').then(m => m.EarthquakeModule)
+      },
+      {
+        path: 'fire',
+        loadChildren: () => import('../fire/fire.module').then(m => m.FireModule)
+      },
+      {
         path: '',
         redirectTo: '/home/dashboard',
         pathMatch: 'full'
