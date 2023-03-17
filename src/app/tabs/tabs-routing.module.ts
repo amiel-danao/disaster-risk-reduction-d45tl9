@@ -13,11 +13,11 @@ const routes: Routes = [
       },
       {
         path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        loadChildren: () => import('../hotlines/hotlines.module').then(m => m.HotlinesModule)
       },
       {
         path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        loadChildren: () => import('../map/map.module').then(m => m.MapModule)
       },
       {
         path: 'dashboard',
