@@ -1,0 +1,36 @@
+#map {
+    height: 100%;
+  }
+
+  
+
+.page-title{
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: bold;
+  color: black;
+  font-family: "Arial", sans-serif;
+  padding-right: 5px;
+}
+
+ion-list, ion-item{
+  background-color: grey !important;
+  --ion-background-color: grey !important;
+  background: grey !important;
+  --background: grey !important;
+  font-family: "Arial", sans-serif;
+}
+
+.black{
+  color: black;
+}
+
+ion-badge {
+  --background: lightgrey;
+  --color: black;
+  --padding: 20px;
+  font-size: 2rem;
+  font-family: "Arial", sans-serif;
+  border-radius: 50%;
+}
+

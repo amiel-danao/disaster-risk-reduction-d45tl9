@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
+import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, MenuController } from '@ionic/angular';
@@ -19,6 +21,8 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private router: Router,
     private menuCtrl: MenuController,
+    public firestore: Firestore,
+    public auth: Auth
   ) {}
 
   // Easy access for form fields
@@ -68,6 +72,14 @@ export class LoginPage implements OnInit {
     await loading.dismiss();
 
     if (user) {
+      const docRef = doc(this.firestore, "admins", this.auth.currentUser!.uid);
+      const docSnap = await getDoc(docRef);
+
+      if(docSnap.exists()){
+        await setDoc(doc(this.firestore, "locations", this.auth.currentUser!.uid), {
+          isAdmin: true,
+        },  {merge: true });
+      }
       await this.router.navigateByUrl('/home', {replaceUrl: true});
     } else {
       await this.showAlert('Login failed', 'Please try again!');

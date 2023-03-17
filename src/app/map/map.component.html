@@ -1,0 +1,32 @@
+<div class="ion-page" >
+  <ion-content [fullscreen]="true"  >
+    <ion-header [translucent]="true">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-icon name="arrow-back-outline" size="large" class="black" [routerLink]="['/home/dashboard']"></ion-icon>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-text>
+      <h1 class="black">Map</h1>
+    </ion-text>
+
+    <div *ngIf="apiLoaded | async">
+      <google-map [center]="center"
+      [zoom]="zoom" (mapInitialized)="onMapReady($event)" [options]="options">
+    
+      <map-marker *ngFor="let markerPosition of markerPositions"
+              [position]="markerPosition"
+              [options]="markerOptions"></map-marker>
+
+    </google-map>
+    </div>
+
+    <ion-fab>
+      <ion-fab-button (click)="onClickLocate($event)">
+        <ion-icon name="locate-outline"></ion-icon>
+        <ion-text></ion-text>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-content>
+</div>

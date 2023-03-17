@@ -40,6 +40,10 @@ const routes: Routes = [
         loadChildren: () => import('../fire/fire.module').then(m => m.FireModule)
       },
       {
+        path: 'map',
+        loadChildren: () => import('../map/map.module').then(m => m.MapModule)
+      },
+      {
         path: '',
         redirectTo: '/home/dashboard',
         pathMatch: 'full'
