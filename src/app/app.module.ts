@@ -13,6 +13,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import {HttpClientModule} from "@angular/common/http";
+import { AppRouteReuseStrategy } from './appRoutStrategy';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,7 @@ import {HttpClientModule} from "@angular/common/http";
 
   ],
 
-  // providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{provide: RouteReuseStrategy, useClass: AppRouteReuseStrategy}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

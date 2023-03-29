@@ -1,12 +1,19 @@
-ion-content, ion-toolbar{
-  --ion-background-color: grey !important;
+ion-content, ion-toolbar, bg-beige{
+  --ion-background-color: #AEC2B6 !important;
+  background-color: #AEC2B6;
+  --background:#AEC2B6;
+  --ion-background-color:#AEC2B6;
+}
+
+.text-dark{
+  color: black !important;
 }
 
 ion-list, ion-item{
-  background-color: grey !important;
-  --ion-background-color: grey !important;
-  background: grey !important;
-  --background: grey !important;
+  background-color: #AEC2B6 !important;
+  --ion-background-color: #AEC2B6 !important;
+  background: #AEC2B6 !important;
+  --background: #AEC2B6 !important;
 }
 
 
@@ -32,6 +39,9 @@ ion-list, ion-item{
   border-radius: 24px;
   margin-top: 10px;
   margin-bottom: 10px;
+  outline-width:2px;
+  outline-color:black;
+  outline-style: solid;
 }
 
 .menu-1{

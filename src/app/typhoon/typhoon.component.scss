@@ -1,24 +1,39 @@
 
+ion-content, ion-toolbar, bg-beige{
+    --ion-background-color: white !important;
+    background-color: white;
+    --background:white;
+    --ion-background-color:white;
+  }
 
-.page-title{
-    font-size: 1.2rem;
+.page-title, .page-subtitle{
+    font-size: 1.3rem;
     font-style: italic;
     font-weight: bold;
     color: black;
     font-family: "Arial", sans-serif;
-    padding-right: 5px;
+    padding-right: 5%;
+    padding-left: 5%;
+}
+
+.black{
+    color: black;
+}
+
+.page-title-bg{
+    background-color:#f800006e;
+    box-shadow: 3px 3px lightgray;
+    padding-right: 5%;
+    padding-left: 5%;
+    border-radius: 15px;
 }
 
 ion-list, ion-item{
-    background-color: grey !important;
-    --ion-background-color: grey !important;
-    background: grey !important;
-    --background: grey !important;
+    background-color: white !important;
+    --ion-background-color: white !important;
+    background: white !important;
+    --background: white !important;
     font-family: "Arial", sans-serif;
-}
-  
-.black{
-    color: black;
 }
 
 ion-badge {
@@ -28,4 +43,16 @@ ion-badge {
     font-size: 2rem;
     font-family: "Arial", sans-serif;
     border-radius: 50%;
+    height: auto;
+  }
+
+
+  .hr {
+    border-bottom: 1px solid #FF9900;
+    margin: 10px 0;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 5%;
+    padding-right: 5%;
   }

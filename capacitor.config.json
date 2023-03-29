@@ -2,5 +2,10 @@
 	"appId": "io.ionic.starter",
 	"appName": "Disaster-Risk-Reduction",
 	"webDir": "www",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"plugins": {
+		"Keyboard": {
+			"resizeOnFullScreen": true
+		}
+	}
 }

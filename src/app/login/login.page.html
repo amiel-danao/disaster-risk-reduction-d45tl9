@@ -1,8 +1,8 @@
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding page" [fullscreen]="true" [scrollEvents]="true">
 
   <ion-grid>
-    <ion-row>
+    <ion-row [hidden]="!showOthers"> 
       <ion-col>
         <ion-img class="login-logo" src="/assets/icon/favicon.png" alt="logo"></ion-img>
       </ion-col>
@@ -23,6 +23,11 @@
             >
           </ion-item>
 
+          <ion-item>
+            <ion-checkbox slot="start" (ionChange)="onChange($event)"></ion-checkbox>
+            <ion-label>Check this, if you are a rescuer</ion-label>
+          </ion-item>
+
           <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
           <ion-button type="button" expand="block" color="secondary" (click)="register()"
           >Create account</ion-button
@@ -30,7 +35,7 @@
         </form>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row [hidden]="!showOthers">
       <ion-col>
         <div class="ion-text-center">
           <h3 class="login-subtitle">HANDA AKO: NATURAL DISASTER AND RISK REDUCTION AND PREPAREDNESS</h3>

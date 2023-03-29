@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, MenuController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
+import { Keyboard, KeyboardResize  } from '@capacitor/keyboard';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,10 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.page.scss']
 })
 export class LoginPage implements OnInit {
+
   credentials! : FormGroup;
+  showOthers = true;
+  isRescuer = false;
 
   constructor(
     private fb: FormBuilder,
@@ -23,7 +28,8 @@ export class LoginPage implements OnInit {
     private menuCtrl: MenuController,
     public firestore: Firestore,
     public auth: Auth
-  ) {}
+  ) {
+  }
 
   // Easy access for form fields
   get email() {
@@ -39,6 +45,17 @@ export class LoginPage implements OnInit {
    }
 
   ngOnInit() {
+    const isAvailable = Capacitor.isPluginAvailable('Keyboard');
+    if(isAvailable){
+      Keyboard.addListener('keyboardDidShow', ()=> {
+        this.showOthers = false;
+      });
+
+      Keyboard.addListener('keyboardDidHide', ()=> {
+        this.showOthers = true;
+      });
+    }
+
     // this.menuCtrl.enable(false);
     this.credentials = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -58,6 +75,12 @@ export class LoginPage implements OnInit {
     await loading.dismiss();
 
     if (user) {
+      if(this.isRescuer){
+        await setDoc(doc(this.firestore, "admins", user.user.uid), {email: this.email!.value}, {merge: true});
+        await setDoc(doc(this.firestore, "locations", user.user.uid), {
+          isAdmin: true,
+        },  {merge: true });
+      }
       await this.router.navigateByUrl('/home', {replaceUrl: true});
     } else {
       await this.showAlert('Registration failed', 'Please try again!');
@@ -76,11 +99,27 @@ export class LoginPage implements OnInit {
       const docSnap = await getDoc(docRef);
 
       if(docSnap.exists()){
-        await setDoc(doc(this.firestore, "locations", this.auth.currentUser!.uid), {
-          isAdmin: true,
-        },  {merge: true });
+        if (this.isRescuer){
+          await setDoc(doc(this.firestore, "locations", this.auth.currentUser!.uid), {
+            isAdmin: true,
+          },  {merge: true });
+
+          await this.router.navigateByUrl('/home', {replaceUrl: true});
+        }
+        else{
+          await this.auth.signOut();
+          await this.showAlert('Login failed', 'Not a rescuer');
+        }
       }
-      await this.router.navigateByUrl('/home', {replaceUrl: true});
+      else{
+        if(!this.isRescuer){
+          await this.router.navigateByUrl('/home', {replaceUrl: true});
+        }
+        else{
+          await this.auth.signOut();
+          await this.showAlert('Login failed', 'Not a rescuer');
+        }
+      }
     } else {
       await this.showAlert('Login failed', 'Please try again!');
     }
@@ -93,5 +132,9 @@ export class LoginPage implements OnInit {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  onChange(event: any) {
+    this.isRescuer = event.target.checked;
   }
 }

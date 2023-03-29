@@ -1,3 +1,10 @@
+ion-content, ion-toolbar, bg-beige{
+  --ion-background-color: white !important;
+  background-color: white;
+  --background:white;
+  --ion-background-color:white;
+}
+
 .page-title{
     font-weight: bolder;
     color: black;
@@ -10,10 +17,10 @@
 }
 
 ion-list, ion-item{
-    background-color: grey !important;
-    --ion-background-color: grey !important;
-    background: grey !important;
-    --background: grey !important;
+    background-color: white !important;
+    --ion-background-color: white !important;
+    background: white !important;
+    --background: white !important;
     font-family: "Arial", sans-serif;
 }
   
@@ -35,4 +42,8 @@ ion-badge {
   }
   .hotline-numbers{
     font-weight: bolder;
+  }
+
+  .text-danger{
+    color: red;
   }

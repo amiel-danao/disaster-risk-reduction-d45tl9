@@ -5,8 +5,14 @@
   text-align: left;
 }
 
+.bg-yellow, ion-toolbar{
+  background-color: #FFED8D;
+  --background:#FFED8D;
+  --ion-background-color:#FFED8D;
+}
+
 ion-card{
-  background-color: grey;
+  background-color: #FFED8D;
   box-shadow:none;
 }
 
