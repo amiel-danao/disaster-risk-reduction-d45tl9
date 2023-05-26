@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace "io.ionic.starter"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "io.ionic.starter"
@@ -39,6 +40,11 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
+    implementation(platform("com.google.firebase:firebase-bom:32.0.0"))
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation "androidx.work:work-runtime:2.8.1"
+    implementation "androidx.annotation:annotation:1.6.0"
+
 }
 
 apply from: 'capacitor.build.gradle'

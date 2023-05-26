@@ -4,10 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import '@angular/google-maps';
-import { Firestore, collectionData, collection, setDoc, doc, getDoc, query, getDocs, where } from '@angular/fire/firestore';
-import { Auth } from '@angular/fire/auth';
+import { Timestamp, addDoc, Firestore, collection, setDoc, doc, getDoc, query, getDocs, where } from '@angular/fire/firestore';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { LoadingController, ToastController  } from '@ionic/angular';
 
 @Component({
   selector: 'app-map',
@@ -24,13 +24,22 @@ export class MapComponent implements OnInit {
   isAdmin = false;
   icon: any;
   markerOptions!: google.maps.MarkerOptions;
-  markerPositions: google.maps.LatLngLiteral[] = [];
+  markerPositions: { lat: number; lng: number; key: string }[] = [];
+
+  clickedMarkerKey: string | null = null;
+  errorMessage: string | null = null;
  
+  private infoWindow: google.maps.InfoWindow | undefined;
 
   private marker : google.maps.Marker | undefined;  
   private map!: google.maps.Map;
+  isInfoWindowOpen = false;
+  infoWindowData: any;
+  emergencyType!: string;
+  profile: any;
 
-  constructor(public httpClient: HttpClient, public firestore: Firestore, public auth: AuthService, private router: Router) {
+  constructor(public httpClient: HttpClient, public firestore: Firestore, public auth: AuthService, private router: Router,
+    private loadingController: LoadingController,  private toastController: ToastController) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     
   }
@@ -44,8 +53,7 @@ export class MapComponent implements OnInit {
   }
 
   async onMapReady(map: google.maps.Map){    
-    this.checkIfAdmin();
-    
+    await this.checkIfAdmin();
 
     const coordinates = await Geolocation.getCurrentPosition();
     this.options = {
@@ -75,8 +83,18 @@ export class MapComponent implements OnInit {
       alert("Geolocation is not supported by this browser.");
     }
 
+    this.initializeInfoWindow();
     
-    console.log('Done loading map');    
+    console.log('Done loading map');
+
+    await this.getProfile();
+  }
+
+  initializeInfoWindow() {
+    this.infoWindow = new google.maps.InfoWindow();
+    google.maps.event.addListener(this.infoWindow, 'closeclick', () => {
+      this.closeInfoWindow();
+    });
   }
 
   initializeMarkers() {
@@ -139,7 +157,7 @@ export class MapComponent implements OnInit {
 
     console.log(`isAdmin: ${this.isAdmin}`);
 
-    
+
     this.fetchOtherLocations();
     this.initializeMarkers();
   }
@@ -152,7 +170,11 @@ export class MapComponent implements OnInit {
       if (doc.id != this.auth.getAuth.currentUser!.uid){
         let data = doc.data();
         if (("lat" in data) && ("lng" in data)){
-          this.markerPositions.push({lat: data['lat'], lng: data['lng']});
+          this.markerPositions.push({
+            lat: data["lat"],
+            lng: data["lng"],
+            key: doc.id, // Assign the document key to the 'key' property
+          });
 
           console.log(doc.id, " => ", doc.data());
         }
@@ -161,5 +183,192 @@ export class MapComponent implements OnInit {
 
     console.log(this.markerPositions);
   }
+
+  onMapClick(event: google.maps.MapMouseEvent) {    
+    const markerKey = event.latLng?.toJSON().toString();
+    console.log(markerKey);
+
+    if (markerKey && this.infoWindow) {
+      this.infoWindow.close();
+      this.infoWindow.setContent(`You clicked marker with key: ${markerKey}`);
+      this.infoWindow.setPosition(event.latLng);
+      this.infoWindow.open(this.map);
+    }
+  }
+
+  onMarkerClick(markerPosition: { lat: number; lng: number; key: string }, documentKey: string) {
+    
+    if (this.infoWindow) {
+      this.infoWindow.close();
+      const content = document.createElement('div');
+      content.style.color = "black";
+      console.log(documentKey);
+      // Fetch the profile data from Firestore based on the marker key
+      const profileRef = doc(this.firestore, 'Profiles', documentKey);
+      getDoc(profileRef)
+        .then((docSnap) => {
+          if (docSnap.exists()) {
+            const profileData = docSnap.data();
+            this.infoWindowData = profileData;
+            this.infoWindowData['documentKey'] = documentKey;
+            // Display the profile information in the info window
+            if (profileData) {
+              const profileName = document.createElement('h3');
+              profileName.innerText = profileData['firstName'] + ' ' + profileData['lastName'];
+              content.appendChild(profileName);
+
+              const profileEmail = document.createElement('p');
+              profileEmail.innerText = profileData['email'];
+              content.appendChild(profileEmail);
+
+              if(profileData.hasOwnProperty('mobileNumber')){
+                const phoneNumber = document.createElement('p');
+                phoneNumber.innerText = profileData['mobileNumber'];
+                content.appendChild(phoneNumber);
+              }
+            }
+          } else {
+            // Profile document doesn't exist
+            const message = document.createElement('p');
+            message.innerText = 'Profile not found.';
+            content.appendChild(message);
+            this.infoWindowData = null;
+          }
+          if(this.infoWindow){
+            this.isInfoWindowOpen = true;
+            this.infoWindow.setContent(content);
+            this.infoWindow.setPosition({
+              lat: markerPosition.lat,
+              lng: markerPosition.lng
+            });
+            this.infoWindow.open(this.map);
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching profile data:', error);
+        });
+  }
 }
+  
+
+  dismissErrorMessage() {
+    this.errorMessage = null;
+  }
+
+  closeInfoWindow() {
+    this.isInfoWindowOpen = false;
+    this.infoWindowData = null;
+  }
+
+  async submitRescueTicket() {
+    console.log("submitRescueTicket");
+    if(!this.isInfoWindowOpen || !this.infoWindowData){
+      return;
+    }
+
+    if (!this.emergencyType) {
+      const toast = await this.toastController.create({
+        message: 'Please enter the emergency type',
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
+      return;
+    }
+
+    console.log("Begin submit ticket");
+    const rescuerId = this.infoWindowData.documentKey;
+    const userId = this.auth.getAuth.currentUser?.uid;
+    const dateSubmitted = Timestamp.fromDate(new Date());
+
+    // Validate the fields
+    if (!rescuerId || !userId) {
+      const toast = await this.toastController.create({
+        message: 'Rescuer ID and User ID are required.',
+        duration: 3000,
+        color: 'danger'
+      });
+      await toast.present();
+
+      return;
+    }
+
+    const ticketData = {
+      rescuerId: rescuerId,
+      userId: userId,
+      rescuerName: this.infoWindowData['firstName'] + " " + this.infoWindowData['lastName'],
+      dateSubmitted: dateSubmitted,
+      emergencyType: this.emergencyType,
+      userName: this.profile['firstName'] + " " + this.profile['lastName']
+    };
+
+    const loading = await this.loadingController.create({
+      message: 'Submitting ticket...',
+      spinner: 'dots'
+    });
+  
+    await loading.present();
+
+    
+    // Check if a duplicate ticket already exists
+    const q = query(
+      collection(this.firestore, 'Tickets'),
+      where('rescuerId', '==', rescuerId),
+      where('userId', '==', userId),
+      where('dateSubmitted', '>=', Timestamp.fromMillis(dateSubmitted.toMillis() - 86400000)), // Subtract 24 hours
+      where('dateSubmitted', '<=', Timestamp.fromMillis(dateSubmitted.toMillis() + 86400000)), // Add 24 hours
+      where('emergencyType', '==', this.emergencyType)
+      );
+
+    const querySnapshot = await getDocs(q);
+    const duplicateTickets = querySnapshot.docs;
+
+    if (duplicateTickets.length > 0) {
+      await loading.dismiss();
+
+      const toast = await this.toastController.create({
+        message: 'Duplicate ticket already exists.',
+        duration: 3000,
+        color: 'danger'
+      });
+      await toast.present();
+
+      return;
+    }
+  
+    // Save the ticket data to the "Tickets" collection
+    addDoc(collection(this.firestore, 'Tickets'), ticketData)
+      .then(() => {
+        console.log("Ticket submitted successfully");
+        // Reset the infoWindowData
+        this.infoWindowData = null;
+      })
+      .catch((error) => {
+        console.error("Error submitting ticket:", error);
+      })
+      .finally(async () => {
+        await loading.dismiss();
+      });
+  }
+
+  async getProfile() {
+    const profileRef = doc(this.firestore, 'Profiles', this.auth.getAuth.currentUser!.uid);
+        getDoc(profileRef)
+          .then(async (docSnap) => {
+            if (docSnap.exists()) {
+              this.profile = docSnap.data();  
+            }
+            else{
+              const toast = await this.toastController.create({
+                message: 'Profile data not found!',
+                duration: 3000,
+                color: 'danger'
+              });
+              await toast.present();
+            }  
+          });
+  }
+  
+}
+
 

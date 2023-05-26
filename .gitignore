@@ -78,3 +78,5 @@ angular/test/build/
 packages/vue/test/build/
 
 .npmrc
+
+resources/android/**/*

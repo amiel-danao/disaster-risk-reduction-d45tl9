@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Email:</ion-label>
+        <ion-input [(ngModel)]="email" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>First Name:</ion-label>
+        <ion-input [(ngModel)]="firstName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Last Name:</ion-label>
+        <ion-input [(ngModel)]="lastName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Mobile Number:</ion-label>
+        <ion-input [(ngModel)]="mobileNumber"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Address:</ion-label>
+        <ion-input [(ngModel)]="address"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" (click)="updateProfile()">Update</ion-button>
+
+  <ion-footer>
+    <ion-toolbar>
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+        <ion-button fill="clear" slot="end" (click)="dismissErrorMessage()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>

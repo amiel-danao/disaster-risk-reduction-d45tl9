@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "833783253260",
+    "project_id": "disaster-risk",
+    "storage_bucket": "disaster-risk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833783253260:android:5de94973cd60c123ad6129",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833783253260-ri6pelunpa8cr305deg5fmqpj7mq37cq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.ionic.starter",
+            "certificate_hash": "1aaf6b7f8f5247addb3f68644e5203eee5fb886c"
+          }
+        },
+        {
+          "client_id": "833783253260-mvn0rbgqj5a8r0dknk3dtkmanmo8sjn1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS-EvTA93wBs3YVp6lOVtfutH359GC4zM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833783253260-mvn0rbgqj5a8r0dknk3dtkmanmo8sjn1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

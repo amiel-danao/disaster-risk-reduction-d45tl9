@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { format, parse, parseISO } from 'date-fns';
 import {WeatherService} from "../services/weather.service";
-import * as moment from "moment";
+
+const DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
 @Component({
   selector: 'app-tab1',
@@ -15,6 +17,7 @@ export class Tab1Page {
   public locationInfo : any;
   public currentDate = '';
   public weatherIcon = '/assets/images/cloudy.png';
+  
   constructor(private service:WeatherService) {}
   async ngOnInit() {
 
@@ -48,8 +51,7 @@ export class Tab1Page {
 
   }
   setCurrentDate(localtime: string) {
-    const date = moment(localtime);
-    this.currentDate = date.format(`dddd, D MMMM`);
+    this.currentDate = format(parseISO(localtime), DATE_FORMAT);
   }
 
   getIcon(description: string){

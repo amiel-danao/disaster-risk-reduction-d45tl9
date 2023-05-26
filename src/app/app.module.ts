@@ -6,7 +6,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -24,7 +24,7 @@ import { AppRouteReuseStrategy } from './appRoutStrategy';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
-
+    provideMessaging(() => getMessaging()),
   ],
 
   providers: [{provide: RouteReuseStrategy, useClass: AppRouteReuseStrategy}],

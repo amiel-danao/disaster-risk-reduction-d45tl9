@@ -47,6 +47,14 @@ const routes: Routes = [
         }
       },
       {
+        path: 'tickets',
+        loadChildren: () => import('../tickets/tickets.module').then(m => m.TicketsPageModule),
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule),
+      },
+      {
         path: '',
         redirectTo: '/home/dashboard',
         pathMatch: 'full'
