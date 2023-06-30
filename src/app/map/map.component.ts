@@ -38,6 +38,11 @@ export class MapComponent implements OnInit {
   emergencyType!: string;
   profile: any;
 
+  origin: any;
+  destination: any;
+  directionsService: google.maps.DirectionsService | undefined;
+  directionsRenderer: google.maps.DirectionsRenderer | undefined;
+
   constructor(public httpClient: HttpClient, public firestore: Firestore, public auth: AuthService, private router: Router,
     private loadingController: LoadingController,  private toastController: ToastController) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -54,6 +59,9 @@ export class MapComponent implements OnInit {
 
   async onMapReady(map: google.maps.Map){    
     await this.checkIfAdmin();
+    this.directionsService = new google.maps.DirectionsService();
+    this.directionsRenderer = new google.maps.DirectionsRenderer();
+    this.directionsRenderer.setMap(map);
 
     const coordinates = await Geolocation.getCurrentPosition();
     this.options = {
@@ -198,6 +206,19 @@ export class MapComponent implements OnInit {
 
   onMarkerClick(markerPosition: { lat: number; lng: number; key: string }, documentKey: string) {
     
+    const request = {
+      origin: new google.maps.LatLng(this.currentLat, this.currentLong),
+      destination: new google.maps.LatLng(markerPosition.lat, markerPosition.lng),
+      travelMode: google.maps.TravelMode.DRIVING
+    };
+    
+    this.directionsService!.route(request, (response, status) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+        this.directionsRenderer!.setDirections(response);
+      }
+    });
+
+
     if (this.infoWindow) {
       this.infoWindow.close();
       const content = document.createElement('div');

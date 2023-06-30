@@ -11,10 +11,20 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title>Your Tickets</ion-card-title>
+
+      <ion-segment value="Pending" (ionChange)="segmentChanged($event)" [(ngModel)]="selectedStatus">
+        <ion-segment-button value="Pending" oncl>
+          <ion-label>Pending</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Done">
+          <ion-label>Logs</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
     </ion-card-header>
     <ion-card-content>
       <ion-list lines="full">
-        <ion-item *ngFor="let ticket of tickets">
+        <ion-item *ngFor="let ticket of tickets" >
           <ion-text>{{ ticket.dateSubmitted | timestampToDate }}
             <br>
             <ion-text>{{ticket.emergencyType}}</ion-text>
@@ -25,6 +35,10 @@
             </ng-template>
           </ion-text>
           
+          <ion-select *ngIf="isAdmin" id="{{ticket.id}}" aria-label="Status" interface="popover" (ionChange)="onSelectChange($event)"  [placeholder]="ticket.status ? ticket.status : 'Pending'">
+            <ion-select-option value="Pending">Pending</ion-select-option>
+            <ion-select-option value="Done">Done</ion-select-option>
+          </ion-select>
         </ion-item>
       </ion-list>
     </ion-card-content>
