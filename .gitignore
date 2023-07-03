@@ -80,3 +80,4 @@ packages/vue/test/build/
 .npmrc
 
 resources/android/**/*
+android/app/debug/disaster.zip

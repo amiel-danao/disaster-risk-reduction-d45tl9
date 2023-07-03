@@ -44,9 +44,12 @@ def on_snapshot(doc_snapshot, changes, read_time):
                     # topic='ticket_updates',  # Replace with your desired FCM topic
                 )
 
+                try:
                 # Send the FCM notification
-                response = messaging.send(message)
-                print('FCM notification sent:', response)
+                    response = messaging.send(message)
+                    print('FCM notification sent:', response)
+                except Exception:
+                    pass
                 # Perform actions here based on the new ticket document
                 # Perform actions here based on the new ticket document
 
